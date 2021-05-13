@@ -13,7 +13,10 @@ Use Python version >= 3.6
 $ pip3 install -r requirements.txt
 ```
 2. Use your own video or download my sample video from [HERE](https://drive.google.com/file/d/10CFyMSEY_w5ZjzWsYClFxYIdpY62PG31/view?usp=sharing).
-
+```sh
+$ mkdir data
+$ cd data
+```
 3. Run the program
 Specify the video feed you 
 ```sh
