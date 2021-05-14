@@ -17,7 +17,9 @@ $ pip3 install -r requirements.txt
 $ mkdir data
 $ cd data
 ```
-3. Run the program
+3. Download pre-trained model (onnx) from [comma-ai gituhub](https://github.com/commaai/openpilot/tree/master/models)
+
+4. Run the program
 
 Note: Specify the video feed location
 ```sh
