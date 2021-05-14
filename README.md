@@ -18,7 +18,8 @@ $ mkdir data
 $ cd data
 ```
 3. Run the program
-Specify the video feed you 
+
+Note: Specify the video feed location
 ```sh
 $ python3 openpilot_onnx.py
 ```
