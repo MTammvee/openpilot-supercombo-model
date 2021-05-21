@@ -31,13 +31,46 @@ def seperate_odd_even(df):
 def main():
     model = "supercombo.onnx"
 
-    cap = cv2.VideoCapture('data/cropped_plats.mp4')
+    cap = cv2.VideoCapture('/Users/martinta/Documents/commai/python/data/cropped_plats.mp4')
     parsed_images = []
     x_ = np.arange(0, 33)
 
     width = 512
     height = 256
     dim = (width, height)
+
+    plan_start_idx = 0
+    plan_end_idx = 4955
+    
+    lanes_start_idx = plan_end_idx
+    lanes_end_idx = lanes_start_idx + 264
+    
+    lane_lines_prob_start_idx = lanes_end_idx
+    lane_lines_prob_end_idx = lane_lines_prob_start_idx + 8
+    
+    road_start_idx = lane_lines_prob_end_idx
+    road_end_idx = road_start_idx + 132
+    
+    lead_start_idx = road_end_idx
+    lead_end_idx = lead_start_idx + 55
+    
+    lead_prob_start_idx = lead_end_idx
+    lead_prob_end_idx = lead_prob_start_idx + 3
+    
+    desire_start_idx = lead_prob_end_idx
+    desire_end_idx = desire_start_idx + 8
+    
+    meta_start_idx = desire_end_idx
+    meta_end_idx = meta_start_idx + 32
+    
+    desire_pred_start_idx = meta_end_idx
+    desire_pred_end_idx = desire_pred_start_idx + 32
+    
+    pose_start_idx = desire_pred_end_idx
+    pose_end_idx = pose_start_idx + 12
+    
+    rnn_start_idx = pose_end_idx
+    rnn_end_idx = rnn_start_idx + 908
 
     session = onnxruntime.InferenceSession(model, None)
     while(cap.isOpened()):
@@ -86,17 +119,17 @@ def main():
 
             res = np.array(result)
 
-            #res[:,:,0:9905]
-            lanes = res[:,:,9905:10169]
-            #lane_lines_prob = res[:,:,10169:10173]
- 			# lane_road = res[:,:,10173:10305]
- 			# lead = res[:,:,10305:10360]
- 			# lead_prob = res[:,:,10360:10363]
- 			# desire_state = res[:,:,10363:10371]
- 			# meta = res[:,:,10371:10375]
- 			# desire = res[:,:,10375:10407]
- 			# pose = res[:,:,10407:10419]
- 			# recurrent_layer = res[:,:,10419:11327]
+            # plan = res[:,:,plan_start_idx:plan_end_idx]
+            lanes = res[:,:,lanes_start_idx:lanes_end_idx]
+            # lane_lines_prob = res[:,:,lane_lines_prob_start_idx:lane_lines_prob_end_idx]
+            # lane_road = res[:,:,road_start_idx:road_end_idx]
+            # lead = res[:,:,lead_start_idx:lead_end_idx]
+   			# lead_prob = res[:,:,lead_prob_start_idx:lead_prob_end_idx]
+ 			# desire_state = res[:,:,desire_start_idx:desire_end_idx]
+ 			# meta = res[:,:,meta_start_idx:meta_end_idx]
+ 			# desire_pred = res[:,:,desire_pred_start_idx:desire_pred_end_idx]
+ 			# pose = res[:,:,pose_start_idx:pose_end_idx]
+            # recurrent_layer = res[:,:,rnn_start_idx:rnn_end_idx]
 
             lanes_flat = lanes.flatten()
             df_lanes = pd.DataFrame(lanes_flat)
@@ -115,6 +148,7 @@ def main():
             plt.scatter(r_even, x_, color = "b")
             plt.scatter(l_even, x_, color = "b")
             plt.scatter(middle, x_, color = "r")
+            
             plt.title("Raod lines")
             plt.xlabel("blue - road lines | red - predicted path")
             plt.ylabel("Range")
