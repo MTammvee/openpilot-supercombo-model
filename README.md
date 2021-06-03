@@ -1,7 +1,8 @@
 # Openpilot supercomo model deployment
 
-Using comma.ai pretrained self-driving car model to predict lane lanes. 
-![comma_exmpl](https://user-images.githubusercontent.com/43088163/118095593-f0408480-b3d8-11eb-8837-c4cd3f59eed6.png)
+Using comma.ai pretrained self-driving car model to predict lane lanes.
+![output](https://user-images.githubusercontent.com/43088163/120663559-cab41180-c492-11eb-940d-c58e9b5983f7.png)
+
 
 
 
